@@ -6,6 +6,7 @@ import Nav from "./components/Nav";
 import Signup from "./pages/Signup";
 import Sidebar from "./components/Sidebar";
 import Settings from "./pages/Settings";
+import DevicePage from "./pages/DevicePage";
 
 import {
   BrowserRouter as Router,
@@ -35,7 +36,6 @@ function App() {
     setUser(auth.currentUser);
   }, [auth.currentUser]);
   // auth\
-  console.log(auth.currentUser);
   //   .signInWithEmailAndPassword("admin@email.com", "iotEquipo6")
   //   .then((usr) => setUser(usr))
   //   .catch(console.log("A"));
@@ -52,7 +52,7 @@ function App() {
               <Login user={user} setUser={setUser} />
             </Route>
             <Route path="/signup" exact>
-              <Signup />
+              <Signup setUser={setUser} />
             </Route>
           </Switch>
         </Router>
@@ -70,6 +70,9 @@ function App() {
               </Route>
               <Route path="/settings" exact>
                 <Settings />
+              </Route>
+              <Route path="/device/:deviceKey">
+                <DevicePage />
               </Route>
             </Switch>
           </div>
