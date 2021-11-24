@@ -1,5 +1,0 @@
-Database link: https://entry-manager-dd8f9-default-rtdb.firebaseio.com/ 
-
-Database secret: HykZ75Eq2XTE7zJGuFHnFIW7K81B099BMlt3PpRI 
- 
-Web API key: AIzaSyCmwwYdDcL5gE_M-p_ChrE2pYOGSoGvmD8
