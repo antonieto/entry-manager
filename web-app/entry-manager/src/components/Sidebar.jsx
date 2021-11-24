@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 
 import LogoutButton from "./buttons/LogoutButton";
 import AddDeviceButton from "./buttons/AddDevice";
+import SettingsButton from "./buttons/SettingsButton";
+import settingsSvg from "../icons/settings.svg";
+import logoAzul from "../icons/logo_azul.png";
+import logoNegro from "../icons/logo_negro.png";
+
 import { auth } from "../util/firebaseConfig";
 
-import { Button } from "react-bootstrap";
+import { Button, ButtonGroup } from "react-bootstrap";
 
 const Sidebar = ({ setUser, user }) => {
   let history = useHistory();
@@ -15,15 +20,28 @@ const Sidebar = ({ setUser, user }) => {
     <>
       <div className="sidebar-container bg-light shadow d-flex flex-column justify-content-between">
         <div className="top">
-          <h5 className="text-center">
+          <img
+            src={logoAzul}
+            alt="logo"
+            style={{
+              width: "100%",
+              marginBottom: "-1rem",
+              marginTop: "-2rem",
+            }}
+          />
+          <h5
+            className="text-center"
+            style={{ borderTop: "1px solid grey", paddingTop: "1rem" }}
+          >
             Welcome, {auth.currentUser.displayName}{" "}
           </h5>
-          <Link to="/" className="btn btn-outline-dark btn-block">
-            Home
+
+          <Link to="/" className="btn btn-outline-info btn-block">
+            Inicio
           </Link>
 
-          <Link className="btn btn-outline-info btn-block" to="/settings">
-            Configuracion
+          <Link to="/settings" className="btn btn-dark btn-block">
+            Configuración
           </Link>
 
           <AddDeviceButton />

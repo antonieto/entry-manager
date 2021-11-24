@@ -1,5 +1,6 @@
 import firebase from "@firebase/app";
 
+import "@firebase/database";
 import "@firebase/auth";
 
 const app = firebase.initializeApp({
@@ -14,6 +15,8 @@ const app = firebase.initializeApp({
 });
 
 const auth = firebase.auth();
+const db = firebase.database();
+
 auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
 
-export { auth };
+export { auth, db };

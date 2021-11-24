@@ -11,7 +11,7 @@ const AddDeviceButton = () => {
           className="mr-1"
           style={{ filter: "invert(100%)" }}
         />
-        Add device
+        Nuevo dispositivo
       </button>
     </>
   );
