@@ -1,15 +1,26 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Link,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import { auth } from "../util/firebaseConfig";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
+import axios from "axios";
 
-const Signup = () => {
+const Signup = ({ setUser }) => {
+  let history = useHistory();
+
   const [error, setError] = useState("");
-
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
     confirmPassword: "",
+    displayName: "",
+    handle: "",
   });
 
   const handleChange = (e) => {
@@ -21,15 +32,56 @@ const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { email, password, confirmPassword } = form;
-    if (!email.trim() || !password.trim() || !confirmPassword.trim()) {
+    setLoading(true);
+    const { email, password, confirmPassword, handle, displayName } = form;
+    if (
+      !email.trim() ||
+      !password.trim() ||
+      !confirmPassword.trim() ||
+      !handle.trim() ||
+      !displayName.trim()
+    ) {
       setError("Te falta un campo por llenar");
+      setLoading(false);
       return;
     } else if (password !== confirmPassword) {
       setError("Las contraseñas no coinciden");
+      setLoading(false);
       return;
+    } else {
+      console.log(form.email);
+      axios
+        .post(
+          "http://localhost:5000/entry-manager-dd8f9/us-central1/api/signup",
+          {
+            Headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+            email,
+            password,
+            confirmPassword,
+            handle,
+            displayName,
+          }
+        )
+        .then(() => {
+          auth.signInWithEmailAndPassword(form.email, form.password);
+        })
+        .then((user) => {
+          setUser(user);
+          setLoading(false);
+          history.push("/");
+          return;
+        })
+        .catch((error) => {
+          console.log(error);
+          setLoading(false);
+          return;
+        });
     }
 
+    // Call API
     return;
   };
 
@@ -46,7 +98,27 @@ const Signup = () => {
               <input
                 type="email"
                 name="email"
-                placeholder="Tu email..."
+                placeholder="Tu email"
+                className="form-control"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="">Tu nombre: </label>
+              <input
+                type="text"
+                name="displayName"
+                placeholder="Ingresa un nombre real"
+                className="form-control"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="">Nombre de usuario: </label>
+              <input
+                type="text"
+                name="handle"
+                placeholder="Elige un nombre de usuario"
                 className="form-control"
                 onChange={handleChange}
               />
@@ -66,7 +138,7 @@ const Signup = () => {
               <input
                 type="password"
                 name="confirmPassword"
-                placeholder="Confirma tu contraseña..."
+                placeholder="Confirma tu contraseña"
                 className="form-control"
                 onChange={handleChange}
               />
@@ -81,11 +153,13 @@ const Signup = () => {
         </div>
         <div className="card-footer">
           <button
+            disabled={loading}
             form="signupForm"
             type="submit"
-            className="btn btn-primary btn-block"
+            className={"btn btn-primary btn-block"}
           >
-            Siguiente
+            {loading ? <Spinner animation="grow" size="sm" /> : null}
+            {loading ? "Cargando..." : "Enviar"}
           </button>
         </div>
       </div>

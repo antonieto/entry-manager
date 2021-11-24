@@ -1,13 +1,33 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import CardProgress from "./CardProgress";
 
-const DeviceCard = () => {
+import { db } from "../util/firebaseConfig";
+import { Link } from "react-router-dom";
+import { useObjectVal } from "react-firebase-hooks/database";
+
+const DeviceCard = ({ deviceKey }) => {
+  const [location, loadingLocation, errorLocation] = useObjectVal(
+    db.ref(`/devices/${deviceKey}/location`)
+  );
+  const [actuales, loadingActuales, errorActuales] = useObjectVal(
+    db.ref(`/devices/${deviceKey}/actuales`)
+  );
+  const [maximo, loadingMaximo, errorMaximo] = useObjectVal(
+    db.ref(`/devices/${deviceKey}/maximo`)
+  );
   return (
     <div className="card shadow" style={{ width: "300px", height: "260px" }}>
-      <div className="card-header">Device From somewhere</div>
-      <div className="card-body">Location: somewhere</div>
+      <div className="card-header"> {deviceKey} </div>
+      <div className="card-body">
+        <h6>Location: {location} </h6>
+        <h6>
+          Actuales: {actuales} / {maximo}{" "}
+        </h6>
+        <CardProgress actuales={actuales} maximo={maximo} />
+      </div>
+
       <div className="card-footer">
-        <Link to="/device/1" className="btn btn-info btn-block">
+        <Link to={`/device/${deviceKey}`} className="btn btn-success btn-block">
           Ver dispositivo
         </Link>
       </div>
