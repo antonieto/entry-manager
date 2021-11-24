@@ -4,6 +4,7 @@ import CardProgress from "./CardProgress";
 import { db } from "../util/firebaseConfig";
 import { Link } from "react-router-dom";
 import { useObjectVal } from "react-firebase-hooks/database";
+import { Spinner } from "react-bootstrap";
 
 const DeviceCard = ({ deviceKey }) => {
   const [location, loadingLocation, errorLocation] = useObjectVal(
@@ -15,6 +16,12 @@ const DeviceCard = ({ deviceKey }) => {
   const [maximo, loadingMaximo, errorMaximo] = useObjectVal(
     db.ref(`/devices/${deviceKey}/maximo`)
   );
+
+  if (loadingActuales || loadingLocation || loadingMaximo) {
+    console.log("loading aaa");
+    return <Spinner animation="border" />;
+  }
+
   return (
     <div className="card shadow" style={{ width: "300px", height: "260px" }}>
       <div className="card-header"> {deviceKey} </div>

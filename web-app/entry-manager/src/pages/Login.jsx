@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Alert } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 import { auth } from "../util/firebaseConfig";
 import { useHistory } from "react-router";
 
-const Login = ({ setUser }) => {
+const Login = ({ setUser, setLoading }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const [loginLoading, setLoginLoading] = useState(false);
 
   const [error, setError] = useState("");
   const history = useHistory();
@@ -20,9 +22,11 @@ const Login = ({ setUser }) => {
   };
 
   const handleSubmit = (e) => {
+    setLoginLoading(true);
     e.preventDefault();
     if (!formData.email.trim() || !formData.password.trim()) {
       setError("Todos los campos son obligatorios");
+      setLoginLoading(false);
       return;
     }
     setError("");
@@ -31,14 +35,20 @@ const Login = ({ setUser }) => {
       .signInWithEmailAndPassword(formData.email, formData.password)
       .then((user) => {
         setUser(user);
+        setLoginLoading(false);
         return user.user.getIdToken();
       })
       .then((token) => {
-        console.log(token);
+        setLoginLoading(false);
         document.cookie = `userToken= ${token}`;
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2500);
         history.push("/");
       })
       .catch(() => {
+        setLoginLoading(false);
         setError("Something went wrong");
       });
   };
@@ -64,14 +74,20 @@ const Login = ({ setUser }) => {
             <div className="form-group">
               <label htmlFor="">Password: </label>
               <input
-                type="text"
+                type="password"
                 name="password"
                 placeholder="Tu contraseña..."
                 className="form-control"
                 onChange={handleChange}
               />
             </div>
-            <button className="btn btn-primary btn-block">Submit</button>
+            <button
+              disabled={loginLoading}
+              className="btn btn-primary btn-block"
+            >
+              {loginLoading && <Spinner animation="grow" size="sm" />}
+              {loginLoading ? "Cargando..." : "Enviar"}
+            </button>
           </form>
           {error ? (
             <Alert variant="danger" className="mt-2">

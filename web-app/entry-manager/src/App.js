@@ -8,6 +8,8 @@ import Sidebar from "./components/Sidebar";
 import Settings from "./pages/Settings";
 import DevicePage from "./pages/DevicePage";
 
+import homeGif from "./icons/home.gif";
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -22,12 +24,13 @@ import { auth } from "./util/firebaseConfig";
 
 function App() {
   // return <Dashboard />;
-
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(auth.currentUser);
   auth.onAuthStateChanged((user) => {
     if (user) {
       setUser(user);
     } else {
+      setLoading(false);
       setUser(null);
     }
   });
@@ -39,6 +42,14 @@ function App() {
   //   .signInWithEmailAndPassword("admin@email.com", "iotEquipo6")
   //   .then((usr) => setUser(usr))
   //   .catch(console.log("A"));
+  if (loading) {
+    return (
+      <div className="center-item">
+        <img src={homeGif} alt="Gif" width="800px" />
+      </div>
+    );
+  }
+
   if (!user)
     return (
       <>
@@ -49,7 +60,7 @@ function App() {
               <Homepage />
             </Route>
             <Route path="/login" exact>
-              <Login user={user} setUser={setUser} />
+              <Login user={user} setUser={setUser} setLoading={setLoading} />
             </Route>
             <Route path="/signup" exact>
               <Signup setUser={setUser} />
@@ -58,7 +69,8 @@ function App() {
         </Router>
       </>
     );
-  else
+  else {
+    setTimeout(() => {}, 3000);
     return (
       <>
         <Router>
@@ -79,6 +91,7 @@ function App() {
         </Router>
       </>
     );
+  }
 }
 
 export default App;

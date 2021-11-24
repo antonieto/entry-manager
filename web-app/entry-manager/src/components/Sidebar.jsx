@@ -25,8 +25,8 @@ const Sidebar = ({ setUser, user }) => {
             alt="logo"
             style={{
               width: "100%",
-              marginBottom: "-1rem",
-              marginTop: "-2rem",
+              marginBottom: "0rem",
+              marginTop: "-1rem",
             }}
           />
           <h5

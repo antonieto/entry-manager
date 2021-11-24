@@ -28,7 +28,7 @@ const Homepage = () => {
                   </p>
                 </div>
                 <div className="card-footer">
-                  <button className="btn btn-success btn-block">
+                  <button className="btn btn-primary btn-block">
                     {" "}
                     Order Now!
                   </button>
