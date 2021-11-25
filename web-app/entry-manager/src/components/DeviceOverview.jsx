@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
+
 import AforoProgress from "./AforoProgress";
+import PowerButton from "./buttons/PowerButton";
+
 import { useObjectVal } from "react-firebase-hooks/database";
 import { db } from "../util/firebaseConfig";
 import { Spinner } from "react-bootstrap";
@@ -15,25 +18,7 @@ const DeviceOverview = ({ deviceKey }) => {
   const [activo, loadingActivo, errorActivo] = useObjectVal(
     db.ref(`/devices/${deviceKey}/activo`)
   );
-  const [allow, setAllow] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const handleAllowBtn = () => {
-    if (activo) {
-      db.ref(`/devices/${deviceKey}/activo`)
-        .set(false)
-        .then(() => {
-          return;
-        });
-    } else {
-      db.ref(`/devices/${deviceKey}/activo`)
-        .set(true)
-        .then(() => {
-          return;
-        });
-    }
-  };
 
-  let porcentaje;
   if (loadingActuales) {
     return (
       <div className="center-item">
@@ -46,21 +31,14 @@ const DeviceOverview = ({ deviceKey }) => {
     return (
       <>
         <div className="p-4 border border-top-0 align-items-center shadow">
-          <div className="d-flex justify-content-around mb-4">
-            <button
-              onClick={handleAllowBtn}
-              className={
-                " btn p-2 power-button" +
-                (activo ? " btn-success" : " btn-danger")
-              }
-            >
-              <img
-                src={power}
-                alt="powerSvg"
-                width="50"
-                style={{ filter: "invert(100%)" }}
-              />
-            </button>
+          <div className="d-flex justify-content-around mb-4 align-items-center">
+            <div className="card">
+              <div className="card-header">Detalles</div>
+              <div className="card-body">
+                Aforo acutal: <strong>{actuales}</strong>
+              </div>
+            </div>
+            <PowerButton deviceKey={deviceKey} />
           </div>
           <AforoProgress actuales={actuales} maximo={maximo} activo={activo} />
           <div className="d-flex justify-content-between my-2">

@@ -41,4 +41,6 @@ html {
 
 .power-button {
   border-radius: 50%;
+  height: 70px !important;
+  width: 70px !important;
 }
