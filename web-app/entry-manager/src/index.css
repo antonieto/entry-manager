@@ -38,3 +38,7 @@ html {
   margin-right: 2rem;
   padding: 1rem;
 }
+
+.power-button {
+  border-radius: 50%;
+}

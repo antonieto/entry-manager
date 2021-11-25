@@ -1,6 +1,6 @@
 import React from "react";
 
-const CardProgress = ({ actuales, maximo }) => {
+const AforoProgress = ({ actuales, maximo, activo }) => {
   let color;
   const porcentaje = (actuales / maximo) * 100;
 
@@ -15,7 +15,9 @@ const CardProgress = ({ actuales, maximo }) => {
   return (
     <div class="progress">
       <div
-        className={"progress-bar" + color}
+        className={
+          "progress-bar" + color + (activo ? "" : " progress-bar-striped")
+        }
         role="progressbar"
         style={{ width: `${porcentaje}%` }}
         aria-valuenow={`${porcentaje}`}
@@ -26,4 +28,4 @@ const CardProgress = ({ actuales, maximo }) => {
   );
 };
 
-export default CardProgress;
+export default AforoProgress;

@@ -1,5 +1,5 @@
 import React from "react";
-import CardProgress from "./CardProgress";
+import AforoProgress from "./AforoProgress";
 
 import { db } from "../util/firebaseConfig";
 import { Link } from "react-router-dom";
@@ -30,7 +30,7 @@ const DeviceCard = ({ deviceKey }) => {
         <h6>
           Actuales: {actuales} / {maximo}{" "}
         </h6>
-        <CardProgress actuales={actuales} maximo={maximo} />
+        <AforoProgress actuales={actuales} maximo={maximo} activo={true} />
       </div>
 
       <div className="card-footer">

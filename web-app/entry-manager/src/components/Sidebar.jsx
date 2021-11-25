@@ -25,13 +25,17 @@ const Sidebar = ({ setUser, user }) => {
             alt="logo"
             style={{
               width: "100%",
-              marginBottom: "0rem",
-              marginTop: "-1rem",
+              marginBottom: "1rem",
+              marginTop: "0.5rem",
             }}
           />
           <h5
             className="text-center"
-            style={{ borderTop: "1px solid grey", paddingTop: "1rem" }}
+            style={{
+              borderTop: "1px solid grey",
+              paddingTop: "1.5rem",
+              paddingBottom: "1.5rem",
+            }}
           >
             Welcome, {auth.currentUser.displayName}{" "}
           </h5>
@@ -40,7 +44,7 @@ const Sidebar = ({ setUser, user }) => {
             Inicio
           </Link>
 
-          <Link to="/settings" className="btn btn-dark btn-block">
+          <Link to="/settings" className="btn btn-outline-dark btn-block">
             Configuración
           </Link>
 

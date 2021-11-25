@@ -5,6 +5,7 @@ import { Link, Switch, Route } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
 import DeviceCard from "../components/DeviceCard";
+import AforoProgress from "../components/AforoProgress";
 
 const DevicePage = () => {
   const { deviceKey } = useParams();

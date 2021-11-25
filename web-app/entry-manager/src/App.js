@@ -8,7 +8,8 @@ import Sidebar from "./components/Sidebar";
 import Settings from "./pages/Settings";
 import DevicePage from "./pages/DevicePage";
 
-import homeGif from "./icons/home.gif";
+import homeGif from "./icons/in.gif";
+import exitGif from "./icons/out.gif";
 
 import {
   BrowserRouter as Router,
