@@ -9,6 +9,7 @@ import SettingsButton from "./buttons/SettingsButton";
 import settingsSvg from "../icons/settings.svg";
 import logoAzul from "../icons/logo_azul.png";
 import logoNegro from "../icons/logo_negro.png";
+import logo from "../icons/svg_logo.svg";
 
 import { auth } from "../util/firebaseConfig";
 
@@ -20,15 +21,17 @@ const Sidebar = ({ setUser, user }) => {
     <>
       <div className="sidebar-container bg-light shadow d-flex flex-column justify-content-between">
         <div className="top">
-          <img
-            src={logoAzul}
-            alt="logo"
-            style={{
-              width: "100%",
-              marginBottom: "1rem",
-              marginTop: "0.5rem",
-            }}
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              alt="logo"
+              style={{
+                width: "100%",
+                marginBottom: "1rem",
+                marginTop: "0.5rem",
+              }}
+            />
+          </Link>
           <h5
             className="text-center"
             style={{

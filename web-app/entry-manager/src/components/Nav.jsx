@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Link } from "react-router-dom";
-import logoAzul from "../icons/logo_azul.png";
+import logoAzul from "../icons/svg_logo.svg";
 import Dashboard from "../pages/Dashboard";
 const Nav = () => {
   return (

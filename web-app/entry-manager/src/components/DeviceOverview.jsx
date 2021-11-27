@@ -31,7 +31,7 @@ const DeviceOverview = ({ deviceKey }) => {
     return (
       <>
         <div className="p-4 border border-top-0 align-items-center shadow">
-          <div className="d-flex justify-content-around mb-4 align-items-center">
+          {/* <div className="d-flex justify-content-around mb-4 align-items-center">
             <div className="card">
               <div className="card-header">Detalles</div>
               <div className="card-body">
@@ -44,7 +44,7 @@ const DeviceOverview = ({ deviceKey }) => {
           <div className="d-flex justify-content-between my-2">
             <div className="mx-2">0</div>
             <div className="mx-2"> {maximo} </div>
-          </div>
+          </div> */}
         </div>
       </>
     );
