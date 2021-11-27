@@ -22,7 +22,9 @@ const DevicePage = () => {
         >
           <Link
             to={`/device/${deviceKey}/overview`}
-            className={"nav-link" + (active === 1 ? " active" : "")}
+            className={
+              "bg-dark text-white nav-link" + (active === 1 ? " active" : "")
+            }
           >
             Overview
           </Link>

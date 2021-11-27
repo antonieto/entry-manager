@@ -44,3 +44,7 @@ html {
   height: 70px !important;
   width: 70px !important;
 }
+
+.badge-lg {
+  font-size: large;
+}

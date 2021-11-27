@@ -32,16 +32,20 @@ const Sidebar = ({ setUser, user }) => {
               }}
             />
           </Link>
-          <h5
+          <div
             className="text-center"
             style={{
-              borderTop: "1px solid grey",
+              borderTop: "1px solid #b1b1b1",
               paddingTop: "1.5rem",
               paddingBottom: "1.5rem",
             }}
           >
-            Welcome, {auth.currentUser.displayName}{" "}
-          </h5>
+            Welcome,{" "}
+            <span className="badge badge-success">
+              {" "}
+              {auth.currentUser.displayName}
+            </span>{" "}
+          </div>
 
           <Link to="/" className="btn btn-outline-info btn-block">
             Inicio

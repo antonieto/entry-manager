@@ -13,7 +13,7 @@ const AforoProgress = ({ actuales, maximo, activo }) => {
   }
 
   return (
-    <div class="progress">
+    <div class="progress" style={{ height: "40px" }}>
       <div
         className={
           "progress-bar" + color + (activo ? "" : " progress-bar-striped")

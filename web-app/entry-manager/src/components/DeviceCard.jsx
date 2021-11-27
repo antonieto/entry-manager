@@ -26,10 +26,15 @@ const DeviceCard = ({ deviceKey }) => {
     <div className="card shadow" style={{ width: "300px", height: "260px" }}>
       <div className="card-header"> {deviceKey} </div>
       <div className="card-body">
-        <h6>Location: {location} </h6>
-        <h6>
-          Actuales: {actuales} / {maximo}{" "}
-        </h6>
+        <div>
+          Ubicacion: <strong> {location} </strong>{" "}
+        </div>
+        <div>
+          Aforo:{" "}
+          <strong>
+            {actuales} / {maximo}
+          </strong>{" "}
+        </div>
         <AforoProgress actuales={actuales} maximo={maximo} activo={true} />
       </div>
 
