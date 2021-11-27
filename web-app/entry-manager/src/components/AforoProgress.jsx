@@ -13,7 +13,7 @@ const AforoProgress = ({ actuales, maximo, activo }) => {
   }
 
   return (
-    <div class="progress" style={{ height: "40px" }}>
+    <div className="progress" style={{ height: "40px" }}>
       <div
         className={
           "progress-bar" + color + (activo ? "" : " progress-bar-striped")
@@ -23,7 +23,11 @@ const AforoProgress = ({ actuales, maximo, activo }) => {
         aria-valuenow={`${porcentaje}`}
         aria-valuemin="0"
         aria-valuemax="100"
-      ></div>
+      >
+        {" "}
+        {Math.round(porcentaje)}
+        {" %"}
+      </div>
     </div>
   );
 };

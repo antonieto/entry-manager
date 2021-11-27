@@ -29,7 +29,7 @@ const DeviceCard = ({ deviceKey }) => {
         <div>
           Ubicacion: <strong> {location} </strong>{" "}
         </div>
-        <div>
+        <div className="my-2">
           Aforo:{" "}
           <strong>
             {actuales} / {maximo}
