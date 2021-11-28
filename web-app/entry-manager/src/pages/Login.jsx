@@ -85,7 +85,9 @@ const Login = ({ setUser, setLoading }) => {
               disabled={loginLoading}
               className="btn btn-primary btn-block"
             >
-              {loginLoading && <Spinner animation="grow" size="sm" />}
+              {loginLoading && (
+                <Spinner className="mr-2" animation="grow" size="sm" />
+              )}
               {loginLoading ? "Cargando..." : "Enviar"}
             </button>
           </form>

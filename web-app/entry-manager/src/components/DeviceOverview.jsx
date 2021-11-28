@@ -57,25 +57,11 @@ const DeviceOverview = ({ deviceKey }) => {
     return (
       <>
         <div className="p-4 border border-top-0 align-items-center shadow bg-light">
-          {/* <div className="d-flex justify-content-around mb-4 align-items-center">
-            <div className="card">
-              <div className="card-header">Detalles</div>
-              <div className="card-body">
-                Aforo acutal: <strong>{actuales}</strong>
-              </div>
-            </div>
-            <PowerButton deviceKey={deviceKey} />
-          </div>
-          <AforoProgress actuales={actuales} maximo={maximo} activo={activo} />
-          <div className="d-flex justify-content-between my-2">
-            <div className="mx-2">0</div>
-            <div className="mx-2"> {maximo} </div>
-          </div> */}
           <div className="row">
-            <div className="col">
+            <div className="col mb-4">
               <div
                 className={
-                  "rounded shadow p-4" +
+                  "rounded shadow p-4 bg-white" +
                   (activo ? " border border-success" : " border border-danger")
                 }
               >
@@ -92,7 +78,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   </div>
                 </div>
               </div>
-              <div className="border rounded shadow mt-4 p-4">
+              <div className="border rounded shadow mt-4 p-4 bg-white">
                 <h5>Aforo actual</h5>
                 <div className="mb-2">
                   {" "}
@@ -111,7 +97,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   activo={activo}
                 />
               </div>
-              <div className="border rounded shadow mt-4 p-4">
+              <div className="border rounded shadow mt-4 p-4 bg-white">
                 <h5> Modificar: </h5>
                 <label htmlFor="maximoRange" className="form-label">
                   Aforo maximo:{" "}
@@ -144,7 +130,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Clave: </div>
-                      <span className="badge-lg badge badge-primary">
+                      <span className="badge-lg badge badge-primary rounded-pill">
                         {" "}
                         {deviceKey}{" "}
                       </span>
@@ -153,7 +139,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Ubicacion: </div>
-                      <span className="badge-lg badge badge-primary">
+                      <span className="badge-lg badge badge-primary rounded-pill">
                         {" "}
                         {location}{" "}
                       </span>
@@ -162,7 +148,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Capacidad: </div>
-                      <span className="badge-lg badge badge-primary">
+                      <span className="badge-lg badge badge-primary rounded-pill">
                         {" "}
                         {capacidad}{" "}
                       </span>
@@ -171,7 +157,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Limite: </div>
-                      <span className="badge-lg badge badge-primary">
+                      <span className="badge-lg badge badge-primary rounded-pill">
                         {" "}
                         {maximo}{" "}
                       </span>
@@ -180,7 +166,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Aforo actual: </div>
-                      <span className="badge-lg badge badge-primary">
+                      <span className="badge-lg badge badge-primary rounded-pill">
                         {" "}
                         {actuales}{" "}
                       </span>
@@ -189,7 +175,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Porcentaje de ocupación: </div>
-                      <span className="badge-lg badge badge-primary">
+                      <span className="badge-lg badge badge-primary rounded-pill">
                         {" "}
                         {porcentaje}
                         {" %"}

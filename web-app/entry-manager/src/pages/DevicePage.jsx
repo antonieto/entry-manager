@@ -6,6 +6,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import DeviceCard from "../components/DeviceCard";
 import AforoProgress from "../components/AforoProgress";
+import DeviceSettings from "../components/DeviceSettings";
 
 const DevicePage = () => {
   const { deviceKey } = useParams();
@@ -48,7 +49,7 @@ const DevicePage = () => {
           <DeviceOverview deviceKey={deviceKey} />
         </Route>
         <Route path={`/device/${deviceKey}/settings`} exact>
-          <h4> Settings Page</h4>
+          <DeviceSettings deviceKey={deviceKey} />
         </Route>
         <Route>
           <DeviceOverview deviceKey={deviceKey} />
