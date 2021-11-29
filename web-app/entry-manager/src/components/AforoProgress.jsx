@@ -20,7 +20,7 @@ const AforoProgress = ({ actuales, maximo, activo }) => {
         }
         role="progressbar"
         style={{ width: `${porcentaje}%` }}
-        aria-valuenow={`${porcentaje}`}
+        aria-valuenow={porcentaje}
         aria-valuemin="0"
         aria-valuemax="100"
       >

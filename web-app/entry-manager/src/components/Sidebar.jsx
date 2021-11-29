@@ -1,22 +1,14 @@
 import React from "react";
 
-import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 
 import LogoutButton from "./buttons/LogoutButton";
 import AddDeviceButton from "./buttons/AddDevice";
-import SettingsButton from "./buttons/SettingsButton";
-import settingsSvg from "../icons/settings.svg";
-import logoAzul from "../icons/logo_azul.png";
-import logoNegro from "../icons/logo_negro.png";
 import logo from "../icons/svg_logo.svg";
 
 import { auth } from "../util/firebaseConfig";
 
-import { Button, ButtonGroup } from "react-bootstrap";
-
-const Sidebar = ({ setUser, user }) => {
-  let history = useHistory();
+const Sidebar = () => {
   return (
     <>
       <div className="sidebar-container bg-light shadow d-flex flex-column justify-content-between">
@@ -58,7 +50,7 @@ const Sidebar = ({ setUser, user }) => {
           <AddDeviceButton />
         </div>
         <div className="button-group">
-          <LogoutButton setUser={setUser} />
+          <LogoutButton />
         </div>
       </div>
     </>

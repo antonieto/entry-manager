@@ -1,16 +1,10 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Link,
-  Switch,
-  Route,
-  useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { auth } from "../util/firebaseConfig";
 import { Alert, Spinner } from "react-bootstrap";
 import axios from "axios";
 
-const Signup = ({ setUser }) => {
+const Signup = () => {
   let history = useHistory();
 
   const [error, setError] = useState("");
@@ -69,7 +63,6 @@ const Signup = ({ setUser }) => {
           auth.signInWithEmailAndPassword(form.email, form.password);
         })
         .then((user) => {
-          setUser(user);
           setLoading(false);
           history.push("/");
           return;

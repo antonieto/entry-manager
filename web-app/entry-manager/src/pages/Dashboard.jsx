@@ -1,20 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { db, auth } from "../util/firebaseConfig";
+import { db } from "../util/firebaseConfig";
 
 import { useList } from "react-firebase-hooks/database";
 
-import { Link } from "react-router-dom";
-
 import DeviceCard from "../components/DeviceCard";
+import { Alert, Spinner } from "react-bootstrap";
 
-const Dashboard = ({ user, setUser }) => {
+const Dashboard = () => {
   const [devices, loading, error] = useList(db.ref("/devices"));
 
+  if (loading)
+    return (
+      <div className="center-item">
+        <Spinner animation="border" size="lg" />
+      </div>
+    );
+  if (error)
+    return (
+      <div className="center-item">
+        <Alert variant="danger">Ocurrió un error</Alert>
+      </div>
+    );
   return (
     <>
       <div className="dashboard-root">
-        <div className="dashboard-content mt-4">
+        <div className="dashboard-content">
           <div className="row">
             <div className="col col-sm">
               {devices.map((device) => (

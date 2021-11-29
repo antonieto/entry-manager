@@ -3,7 +3,7 @@ import firebase from "@firebase/app";
 import "@firebase/database";
 import "@firebase/auth";
 
-const app = firebase.initializeApp({
+firebase.initializeApp({
   apiKey: "AIzaSyCmwwYdDcL5gE_M-p_ChrE2pYOGSoGvmD8",
   authDomain: "entry-manager-dd8f9.firebaseapp.com",
   databaseURL: "https://entry-manager-dd8f9-default-rtdb.firebaseio.com",

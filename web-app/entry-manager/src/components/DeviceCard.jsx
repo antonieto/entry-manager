@@ -4,7 +4,7 @@ import AforoProgress from "./AforoProgress";
 import { db } from "../util/firebaseConfig";
 import { Link } from "react-router-dom";
 import { useObjectVal } from "react-firebase-hooks/database";
-import { Spinner } from "react-bootstrap";
+import { Alert, Spinner } from "react-bootstrap";
 
 const DeviceCard = ({ deviceKey }) => {
   const [location, loadingLocation, errorLocation] = useObjectVal(
@@ -20,6 +20,13 @@ const DeviceCard = ({ deviceKey }) => {
   if (loadingActuales || loadingLocation || loadingMaximo) {
     console.log("loading aaa");
     return <Spinner animation="border" />;
+  }
+  if (errorActuales || errorLocation || errorMaximo) {
+    return (
+      <div className="center-item">
+        <Alert variant="danger">Ocurrió un error</Alert>
+      </div>
+    );
   }
 
   return (

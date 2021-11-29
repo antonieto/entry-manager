@@ -4,16 +4,14 @@ import DeviceOverview from "../components/DeviceOverview";
 import { Link, Switch, Route } from "react-router-dom";
 
 import { useParams } from "react-router-dom";
-import DeviceCard from "../components/DeviceCard";
-import AforoProgress from "../components/AforoProgress";
 import DeviceSettings from "../components/DeviceSettings";
+import DeviceHistory from "../components/DeviceHistory";
 
 const DevicePage = () => {
   const { deviceKey } = useParams();
   const [active, setActive] = useState(1);
-  console.log(deviceKey);
   return (
-    <div className="mt-4 mr-4" style={{ width: "1200px" }}>
+    <div className="" style={{ width: "1200px" }}>
       <ul className="nav nav-tabs">
         <li
           className="nav-item"
@@ -43,6 +41,19 @@ const DevicePage = () => {
             Configuracion
           </Link>
         </li>
+        <li
+          className="nav-item"
+          onClick={(e) => {
+            setActive(3);
+          }}
+        >
+          <Link
+            to={`/device/${deviceKey}/history`}
+            className={"nav-link" + (active === 3 ? " active" : "")}
+          >
+            Historial
+          </Link>
+        </li>
       </ul>
       <Switch>
         <Route path={`/device/${deviceKey}/overview`} exact>
@@ -50,6 +61,9 @@ const DevicePage = () => {
         </Route>
         <Route path={`/device/${deviceKey}/settings`} exact>
           <DeviceSettings deviceKey={deviceKey} />
+        </Route>
+        <Route path={`/device/${deviceKey}/history`} exact>
+          <DeviceHistory deviceKey={deviceKey} />
         </Route>
         <Route>
           <DeviceOverview deviceKey={deviceKey} />

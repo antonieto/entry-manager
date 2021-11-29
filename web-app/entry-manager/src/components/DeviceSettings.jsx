@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { db, auth } from "../util/firebaseConfig";
 import { useObjectVal } from "react-firebase-hooks/database";
+import { Spinner } from "react-bootstrap";
 
 const DeviceSettings = ({ deviceKey }) => {
   const [actuales, loadingActuales, errorActuales] = useObjectVal(
@@ -21,6 +22,8 @@ const DeviceSettings = ({ deviceKey }) => {
 
   const [error, setError] = useState("");
   const [nameInput, setNameInput] = useState(auth.currentUser.displayName);
+  const [capacidadInput, setCapacidadInput] = useState(capacidad);
+  const [ubicacionInput, setUbicacionInput] = useState(location);
 
   const handleNameSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +32,19 @@ const DeviceSettings = ({ deviceKey }) => {
       setError("Something went wrong");
     });
   };
-
+  if (
+    loadingActivo ||
+    loadingActuales ||
+    loadingCapacidad ||
+    loadingLoaction ||
+    loadingMaximo
+  )
+    return (
+      <div className="center-item">
+        {" "}
+        <Spinner animation="border" />{" "}
+      </div>
+    );
   return (
     <>
       <div className="bg-light p-4 shadow border" style={{ width: "500px" }}>
@@ -54,19 +69,20 @@ const DeviceSettings = ({ deviceKey }) => {
                 <input
                   type="number"
                   className="form-control border-0"
-                  value={capacidad}
+                  value={capacidadInput}
+                  onChange={(e) => setCapacidadInput(e.target.value)}
                 />
               </form>
             </div>
           </div>
           <div className="list-group-item">
             <div className="d-flex align-items-center justify-content-between">
-              <h6 className="m-0">Nombre de cuenta: </h6>
+              <h6 className="m-0">Ubicacion: </h6>
               <form>
                 <input
                   type="text"
                   className="form-control border-0"
-                  value={auth.currentUser.displayName}
+                  value={ubicacionInput}
                 />
               </form>
             </div>

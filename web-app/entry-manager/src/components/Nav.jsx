@@ -1,7 +1,6 @@
 import React from "react";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logoAzul from "../icons/svg_logo.svg";
-import Dashboard from "../pages/Dashboard";
 const Nav = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">

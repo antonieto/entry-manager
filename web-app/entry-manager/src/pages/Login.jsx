@@ -3,7 +3,7 @@ import { Alert, Spinner } from "react-bootstrap";
 import { auth } from "../util/firebaseConfig";
 import { useHistory } from "react-router";
 
-const Login = ({ setUser, setLoading }) => {
+const Login = ({ setLoading }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,7 +34,6 @@ const Login = ({ setUser, setLoading }) => {
     auth
       .signInWithEmailAndPassword(formData.email, formData.password)
       .then((user) => {
-        setUser(user);
         setLoginLoading(false);
         return user.user.getIdToken();
       })

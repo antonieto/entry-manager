@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import AforoProgress from "./AforoProgress";
 import PowerButton from "./buttons/PowerButton";
@@ -6,7 +6,6 @@ import PowerButton from "./buttons/PowerButton";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { db } from "../util/firebaseConfig";
 import { Spinner } from "react-bootstrap";
-import power from "../icons/power.svg";
 
 const DeviceOverview = ({ deviceKey }) => {
   const [actuales, loadingActuales, errorActuales] = useObjectVal(

@@ -6,13 +6,12 @@ import { auth } from "../../util/firebaseConfig";
 
 import { useHistory } from "react-router";
 
-const LogoutButton = ({ setUser }) => {
+const LogoutButton = () => {
   let history = useHistory();
 
   const handleClick = () => {
     console.log("logging out");
     auth.signOut().then(() => {
-      setUser(null);
       history.push("/");
     });
   };

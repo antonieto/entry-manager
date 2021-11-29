@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Login from "./pages/Login";
 import Homepage from "./pages/Homepage";
 import Dashboard from "./pages/Dashboard";
@@ -7,46 +7,43 @@ import Signup from "./pages/Signup";
 import Sidebar from "./components/Sidebar";
 import Settings from "./pages/Settings";
 import DevicePage from "./pages/DevicePage";
+import NotFound from "./pages/NotFound";
 
 import homeGif from "./icons/in.gif";
-import exitGif from "./icons/out.gif";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Link,
-  Route,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-// import useAuthState from "react-firebase-hooks/auth"
+import { useAuthState } from "react-firebase-hooks/auth";
 
 import { auth } from "./util/firebaseConfig";
+import { Alert, Spinner } from "react-bootstrap";
 
 function App() {
-  // return <Dashboard />;
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(auth.currentUser);
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-      setUser(user);
-    } else {
-      setLoading(false);
-      setUser(null);
-    }
-  });
 
-  useEffect(() => {
-    setUser(auth.currentUser);
-  }, [auth.currentUser]);
-  // auth\
-  //   .signInWithEmailAndPassword("admin@email.com", "iotEquipo6")
-  //   .then((usr) => setUser(usr))
-  //   .catch(console.log("A"));
+  const [user, loadingUser, errorUser] = useAuthState(auth);
+
   if (loading) {
     return (
       <div className="center-item">
         <img src={homeGif} alt="Gif" width="800px" />
+      </div>
+    );
+  }
+
+  if (loadingUser) {
+    return (
+      <div className="center-item">
+        {" "}
+        <Spinner animation="border" />
+      </div>
+    );
+  }
+
+  if (errorUser) {
+    return (
+      <div className="center-item">
+        <Alert variant="danger">Ocurrió un error</Alert>
       </div>
     );
   }
@@ -61,10 +58,10 @@ function App() {
               <Homepage />
             </Route>
             <Route path="/login" exact>
-              <Login user={user} setUser={setUser} setLoading={setLoading} />
+              <Login setLoading={setLoading} />
             </Route>
             <Route path="/signup" exact>
-              <Signup setUser={setUser} />
+              <Signup />
             </Route>
           </Switch>
         </Router>
@@ -76,18 +73,26 @@ function App() {
       <>
         <Router>
           <div className="d-flex">
-            <Sidebar setUser={setUser} />
-            <Switch>
-              <Route path="/" exact>
-                <Dashboard user={user} setUser={setUser} />
-              </Route>
-              <Route path="/settings" exact>
-                <Settings />
-              </Route>
-              <Route path="/device/:deviceKey">
-                <DevicePage />
-              </Route>
-            </Switch>
+            <Sidebar />
+            <div
+              className="p-4"
+              style={{ maxHeight: "100vh", width: "100%", overflowY: "scroll" }}
+            >
+              <Switch>
+                <Route path="/" exact>
+                  <Dashboard />
+                </Route>
+                <Route path="/settings" exact>
+                  <Settings />
+                </Route>
+                <Route path="/device/:deviceKey">
+                  <DevicePage />
+                </Route>
+                <Route>
+                  <NotFound />
+                </Route>
+              </Switch>
+            </div>
           </div>
         </Router>
       </>
