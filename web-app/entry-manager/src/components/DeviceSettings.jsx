@@ -34,8 +34,10 @@ const DeviceSettings = ({ deviceKey }) => {
     return (
       <div className="bg-light shadow p-3" style={{ width: "600px" }}>
         <h5 className="text-center">Configuracion de dispositivo</h5>
-        <div className="text-center border-top border-bottom p-2">
-          <span className="badge badge-primary badge-lg">{deviceKey}</span>
+        <div className="text-center border-top border-bottom py-2 d-block">
+          <span className="badge badge-primary badge-lg d-block">
+            {deviceKey}
+          </span>
         </div>
         <DeviceSettingsForm
           formData={formData}

@@ -43,10 +43,6 @@ const Sidebar = () => {
             Inicio
           </Link>
 
-          <Link to="/settings" className="btn btn-outline-dark btn-block">
-            Configuración
-          </Link>
-
           <AddDeviceButton />
         </div>
         <div className="button-group">
