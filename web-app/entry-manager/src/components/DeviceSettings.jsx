@@ -1,108 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import DeviceSettingsForm from "./DeviceSettingsForm";
+
 import { db, auth } from "../util/firebaseConfig";
 import { useObjectVal } from "react-firebase-hooks/database";
+
 import { Spinner } from "react-bootstrap";
 
 const DeviceSettings = ({ deviceKey }) => {
-  const [actuales, loadingActuales, errorActuales] = useObjectVal(
-    db.ref(`/devices/${deviceKey}/actuales`)
+  const [info, loadingInfo, errorInfo] = useObjectVal(
+    db.ref(`/devices/${deviceKey}`)
   );
-  const [maximo, loadingMaximo, errorMaximo] = useObjectVal(
-    db.ref(`/devices/${deviceKey}/maximo`)
-  );
-  const [activo, loadingActivo, errorActivo] = useObjectVal(
-    db.ref(`/devices/${deviceKey}/activo`)
-  );
-  const [location, loadingLoaction, errorLocation] = useObjectVal(
-    db.ref(`/devices/${deviceKey}/location`)
-  );
-  const [capacidad, loadingCapacidad, errorCapacidad] = useObjectVal(
-    db.ref(`/devices/${deviceKey}/capacidad`)
-  );
+  const [formData, setFormData] = useState({
+    activo: null,
+    actuales: 0,
+    capacidad: 0,
+    location: "",
+    maximo: 0,
+  });
+  useEffect(() => {
+    console.log("info changed");
+    if (info) {
+      setFormData({
+        activo: info.activo,
+        actuales: info.actuales,
+        capacidad: info.capacidad,
+        location: info.location,
+        maximo: info.maximo,
+      });
+    }
+  }, [info]);
 
-  const [error, setError] = useState("");
-  const [nameInput, setNameInput] = useState(auth.currentUser.displayName);
-  const [capacidadInput, setCapacidadInput] = useState(capacidad);
-  const [ubicacionInput, setUbicacionInput] = useState(location);
-
-  const handleNameSubmit = (e) => {
-    e.preventDefault();
-    if (!nameInput.trim()) return;
-    auth.updateCurrentUser({ displayName: nameInput }).catch((error) => {
-      setError("Something went wrong");
-    });
-  };
-  if (
-    loadingActivo ||
-    loadingActuales ||
-    loadingCapacidad ||
-    loadingLoaction ||
-    loadingMaximo
-  )
+  if (!loadingInfo && !errorInfo && formData) {
     return (
-      <div className="center-item">
-        {" "}
-        <Spinner animation="border" />{" "}
+      <div className="bg-light shadow p-3" style={{ width: "600px" }}>
+        <h5 className="text-center">Configuracion de dispositivo</h5>
+        <div className="text-center border-top border-bottom p-2">
+          <span className="badge badge-primary badge-lg">{deviceKey}</span>
+        </div>
+        <DeviceSettingsForm
+          formData={formData}
+          setFormData={setFormData}
+          info={info}
+          deviceKey={deviceKey}
+        />
       </div>
     );
-  return (
-    <>
-      <div className="bg-light p-4 shadow border" style={{ width: "500px" }}>
-        <div className="list-group-flush shadow">
-          <div className="list-group-item">
-            <div className="d-flex align-items-center justify-content-between">
-              <h6 className="m-0">Nombre de cuenta: </h6>
-              <form onSubmit={handleNameSubmit}>
-                <input
-                  type="text"
-                  className="form-control border-0"
-                  value={nameInput}
-                  onChange={(e) => setNameInput(e.target.value)}
-                />
-              </form>
-            </div>
-          </div>
-          <div className="list-group-item">
-            <div className="d-flex align-items-center justify-content-between">
-              <h6 className="m-0">Capacidad: </h6>
-              <form>
-                <input
-                  type="number"
-                  className="form-control border-0"
-                  value={capacidadInput}
-                  onChange={(e) => setCapacidadInput(e.target.value)}
-                />
-              </form>
-            </div>
-          </div>
-          <div className="list-group-item">
-            <div className="d-flex align-items-center justify-content-between">
-              <h6 className="m-0">Ubicacion: </h6>
-              <form>
-                <input
-                  type="text"
-                  className="form-control border-0"
-                  value={ubicacionInput}
-                />
-              </form>
-            </div>
-          </div>
-          <div className="list-group-item">
-            <div className="d-flex align-items-center justify-content-between">
-              <h6 className="m-0">Nombre de cuenta: </h6>
-              <form>
-                <input
-                  type="text"
-                  className="form-control border-0"
-                  value={auth.currentUser.displayName}
-                />
-              </form>
-            </div>
-          </div>
-        </div>
+  } else {
+    return (
+      <div className="center-item">
+        <Spinner animation="border" />
       </div>
-    </>
-  );
+    );
+  }
 };
 
 export default DeviceSettings;

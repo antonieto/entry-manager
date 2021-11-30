@@ -48,7 +48,7 @@ const DeviceOverview = ({ deviceKey }) => {
     let porcentaje = Math.round((actuales / maximo) * 100);
     const handleMaximoRange = (e) => {
       db.ref(`/devices/${deviceKey}/maximo`)
-        .set(e.target.value)
+        .set(parseInt(e.target.value))
         .catch((e) => {
           console.error(e);
         });
