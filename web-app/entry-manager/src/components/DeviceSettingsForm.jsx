@@ -4,9 +4,12 @@ import { db } from "../util/firebaseConfig";
 
 const DeviceSettingsForm = ({ formData, setFormData, info, deviceKey }) => {
   const handleChange = (e) => {
+    let value = e.target.value;
+    if (!isNaN(value)) value = parseInt(value);
+
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: value,
     });
   };
 

@@ -129,7 +129,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Clave: </div>
-                      <span className="badge-lg badge badge-primary rounded-pill">
+                      <span className="badge-lg badge badge-dark">
                         {" "}
                         {deviceKey}{" "}
                       </span>
@@ -138,7 +138,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Ubicacion: </div>
-                      <span className="badge-lg badge badge-primary rounded-pill">
+                      <span className="badge-lg badge badge-dark">
                         {" "}
                         {location}{" "}
                       </span>
@@ -147,7 +147,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Capacidad: </div>
-                      <span className="badge-lg badge badge-primary rounded-pill">
+                      <span className="badge-lg badge badge-dark">
                         {" "}
                         {capacidad}{" "}
                       </span>
@@ -156,7 +156,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Limite: </div>
-                      <span className="badge-lg badge badge-primary rounded-pill">
+                      <span className="badge-lg badge badge-dark">
                         {" "}
                         {maximo}{" "}
                       </span>
@@ -165,7 +165,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Aforo actual: </div>
-                      <span className="badge-lg badge badge-primary rounded-pill">
+                      <span className="badge-lg badge badge-dark">
                         {" "}
                         {actuales}{" "}
                       </span>
@@ -174,7 +174,7 @@ const DeviceOverview = ({ deviceKey }) => {
                   <div className="list-group-item">
                     <div className="d-flex justify-content-between align-items-center">
                       <div>Porcentaje de ocupación: </div>
-                      <span className="badge-lg badge badge-primary rounded-pill">
+                      <span className="badge-lg badge badge-dark">
                         {" "}
                         {porcentaje}
                         {" %"}
