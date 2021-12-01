@@ -18,14 +18,13 @@ const DeviceSettings = ({ deviceKey }) => {
     maximo: 0,
   });
   useEffect(() => {
-    console.log("info changed");
     if (info) {
       setFormData({
         activo: info.activo,
-        actuales: info.actuales,
-        capacidad: info.capacidad,
+        actuales: Number(parseInt(info.actuales)),
+        capacidad: Number(parseInt(info.capacidad)),
         location: info.location,
-        maximo: info.maximo,
+        maximo: Number(parseInt(info.maximo)),
       });
     }
   }, [info]);

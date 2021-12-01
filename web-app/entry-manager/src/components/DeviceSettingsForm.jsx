@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { db } from "../util/firebaseConfig";
 
 const DeviceSettingsForm = ({ formData, setFormData, info, deviceKey }) => {
+  const [valid, setValid] = useState(true);
+  const [loading, setLoading] = useState(false);
   const handleChange = (e) => {
     let value = e.target.value;
-    if (!isNaN(value) && e.target.name !== "location") {
-      if (!value) value = 0;
+    if (e.target.name === "location") {
+      if (value.trim() !== "") setValid(true);
+    } else if (!value) {
+      value = 0;
+    } else {
+      if (toString(value).substr(0) === "0") {
+        value = parseInt(toString(value).substr(1, toString(value).length) - 2);
+      }
       value = parseInt(value);
     }
-
     setFormData({
       ...formData,
       [e.target.name]: value,
@@ -22,14 +29,24 @@ const DeviceSettingsForm = ({ formData, setFormData, info, deviceKey }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    db.ref(`/devices/${deviceKey}`)
-      .set(formData)
-      .then(() => {
-        console.log("Changed");
-      })
-      .catch(() => {
-        console.log("Changed");
-      });
+    let { location } = formData;
+    setLoading(false);
+    // Validar datos de formData
+
+    if (!location.trim()) {
+      setValid(false);
+      return;
+    } else {
+      db.ref(`/devices/${deviceKey}`)
+        .set(formData)
+        .then(() => {
+          setValid(true);
+          return;
+        })
+        .catch(() => {
+          return;
+        });
+    }
   };
 
   return (
@@ -40,7 +57,10 @@ const DeviceSettingsForm = ({ formData, setFormData, info, deviceKey }) => {
             <div>Ubicacion:</div>
             <input
               type="text"
-              className="form-control border-0 settings-input"
+              className={
+                "form-control settings-input" +
+                (valid ? " border-0" : " is-invalid")
+              }
               value={formData.location}
               name="location"
               onChange={handleChange}
@@ -59,10 +79,11 @@ const DeviceSettingsForm = ({ formData, setFormData, info, deviceKey }) => {
           <div className="list-group-item d-flex justify-content-between align-items-center">
             <div>Maximo:</div>
             <input
-              type="text"
+              type="number"
               className="form-control border-0 settings-input"
               onChange={handleChange}
               value={formData.maximo}
+              name="maximo"
             />
           </div>
           <div className="list-group-item d-flex justify-content-between align-items-center">
