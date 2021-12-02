@@ -42,8 +42,6 @@ const Sidebar = () => {
           <Link to="/" className="btn btn-outline-info btn-block">
             Inicio
           </Link>
-
-          <AddDeviceButton />
         </div>
         <div className="button-group">
           <LogoutButton />

@@ -1,13 +1,42 @@
-import React from "react";
-import { Alert, Spinner } from "react-bootstrap";
-import { useObjectVal } from "react-firebase-hooks/database";
+import React, { useState } from "react";
+import { Alert, Spinner, Button } from "react-bootstrap";
+import { useListVals } from "react-firebase-hooks/database";
 import { db } from "../util/firebaseConfig";
-
+import axios from "axios";
 const DeviceHistory = ({ deviceKey }) => {
-  const [entries, loadingEntries, errorEntries] = useObjectVal(
+  const [entries, loadingEntries, errorEntries] = useListVals(
     db.ref(`/entries/${deviceKey}`)
   );
-
+  const displayTime = (seconds) => {
+    const convertedSeconds = (seconds + 6 * 3600) * 1000;
+    const time = new Date(convertedSeconds);
+    console.log(seconds);
+    return time.toLocaleString();
+  };
+  const [loadingReset, setLoading] = useState(false);
+  const handleReset = () => {
+    setLoading(true);
+    axios
+      .delete(
+        `http://localhost:5000/entry-manager-dd8f9/us-central1/api/device/resetHistory/${deviceKey}`,
+        {
+          headers: {
+            Headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          },
+        }
+      )
+      .then(() => {
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.error(err);
+      });
+  };
+  console.log(entries);
   if (loadingEntries)
     return (
       <div className="center-item">
@@ -17,6 +46,19 @@ const DeviceHistory = ({ deviceKey }) => {
     );
   if (errorEntries) return <Alert variant="danger"> Ocurrió un error </Alert>;
   if (!loadingEntries && !errorEntries) {
+    if (entries.length === 0) {
+      return (
+        <div className="p-4">
+          <div className="center-item">
+            <Alert variant="dark">
+              <div className="text-center">
+                Aquí verás el historial de entradas, cuando haya
+              </div>
+            </Alert>
+          </div>
+        </div>
+      );
+    }
     return (
       <div
         className="bg-light   shadow"
@@ -26,6 +68,20 @@ const DeviceHistory = ({ deviceKey }) => {
           overflowX: "hidden",
         }}
       >
+        <div
+          onClick={handleReset}
+          className={
+            "btn btn-block btn-outline-danger m-2" +
+            (loadingReset ? " disabled" : "")
+          }
+        >
+          <div className="d-flex justify-content-center align-items-center">
+            {loadingReset ? (
+              <Spinner animation="grow" size="sm" className="mr-2" />
+            ) : null}
+            <div>Resetear historial</div>
+          </div>
+        </div>
         <table className="table">
           <thead>
             <tr>
@@ -37,9 +93,9 @@ const DeviceHistory = ({ deviceKey }) => {
             {entries.map((entrie, index) => (
               <tr className="table-light text-dark" key={index}>
                 <td>
-                  <strong>{entrie.temperatura}</strong>
+                  <strong>{entrie.temperature}</strong>
                 </td>
-                <td> {entrie.timeStamp} </td>
+                <td> {displayTime(entrie.timeStamp)} </td>
               </tr>
             ))}
           </tbody>

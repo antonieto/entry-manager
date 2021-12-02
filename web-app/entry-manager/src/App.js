@@ -55,13 +55,16 @@ function App() {
           <Nav />
           <Switch>
             <Route path="/" exact>
-              <Homepage />
+              <Login setLoading={setLoading} />
             </Route>
             <Route path="/login" exact>
               <Login setLoading={setLoading} />
             </Route>
             <Route path="/signup" exact>
               <Signup />
+            </Route>
+            <Route>
+              <Login setLoading={setLoading} />
             </Route>
           </Switch>
         </Router>
